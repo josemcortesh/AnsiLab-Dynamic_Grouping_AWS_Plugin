@@ -1,0 +1,25 @@
+---
+- name: Apache installation with apt
+  hosts: aws_ec2
+  become: yes
+
+  tasks:
+  - name: Install apache2
+    ansible.builtin.apt:
+      update_cache: yes
+      name: apache2
+      state: latest
+  
+  - name: enabled mod_rewrite (read & write)
+    community.general.apache2_module:
+      name: rewrite
+      state: present
+    notify:
+      - restart apache2
+
+  handlers:
+    - name: restart apache2
+      service:
+        name: apache2
+        state: restarted
+...

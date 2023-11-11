@@ -1,0 +1,14 @@
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-east-1
+
+#The filters allow to select instances from a dictionary of AWS options
+filters:
+  instance-state-name: running
+
+#The keyed groups allows to group the different EC2 accroding for Tags
+#and also allows to name append a prefix for the names
+#Multiple tags can be used to group using different patterns.
+keyed_groups:
+  - key: tags.Group
+    prefix: Group
